@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.10.1"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.5",
         "ergebnis/composer-normalize": "^2.45",
         "fakerphp/faker": "^1.23",
         "friendsofphp/php-cs-fixer": "^3.67",
