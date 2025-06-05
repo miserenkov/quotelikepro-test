@@ -1,0 +1,43 @@
+name: "Normalize composer.json files"
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+    paths:
+      - 'composer.json'
+      - '.github/workflows/normalize-composer.yml'
+
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    name: "Normalize composer.json files"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer:v2
+          extensions: json, dom, curl, libxml, mbstring
+          coverage: none
+
+      - name: Normalize composer.json file
+        run: |
+          composer global config --no-plugins allow-plugins.ergebnis/composer-normalize true
+          composer global require ergebnis/composer-normalize
+          composer normalize
+
+      - name: Commit normalized files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: normalize composer.json"

@@ -1,0 +1,38 @@
+name: Fix PHP code style issues
+
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+    paths:
+      - '**.php'
+      - '.github/workflows/coding-standards.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  php-code-styling:
+    name: Fix code styling
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer:v2, php-cs-fixer
+          extensions: json, dom, curl, libxml, mbstring
+          coverage: none
+
+      - name: Run PHP CS Fixer
+        run: php-cs-fixer fix --diff --allow-risky=yes
+
+      - name: Commit linted files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: apply coding standards fixes"
