@@ -1,11 +1,97 @@
 @import 'tailwindcss';
+@import "vue-toastification/dist/index.css";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-primary-50: #ecf9ff;
+    --color-primary-100: #d4f0ff;
+    --color-primary-200: #b2e7ff;
+    --color-primary-300: #7ddaff;
+    --color-primary-400: #40c2ff;
+    --color-primary-500: #14a0ff;
+    --color-primary-600: #007fff;
+    --color-primary-700: #0067ff;
+    --color-primary-800: #0056d6;
+    --color-primary-900: #0848a0;
+    --color-primary-950: #0a2d61;
+
+    --color-secondary-50: var(--color-slate-50);
+    --color-secondary-100: var(--color-slate-100);
+    --color-secondary-200: var(--color-slate-200);
+    --color-secondary-300: var(--color-slate-300);
+    --color-secondary-400: var(--color-slate-400);
+    --color-secondary-500: var(--color-slate-500);
+    --color-secondary-600: var(--color-slate-600);
+    --color-secondary-700: var(--color-slate-700);
+    --color-secondary-800: var(--color-slate-800);
+    --color-secondary-900: var(--color-slate-900);
+    --color-secondary-950: var(--color-slate-950);
+
+    --color-info-50: #f0faff;
+    --color-info-100: #e0f4fe;
+    --color-info-200: #caf0fe;
+    --color-info-300: #7cddfd;
+    --color-info-400: #36cdfa;
+    --color-info-500: #0cb7eb;
+    --color-info-600: #0094c9;
+    --color-info-700: #0175a3;
+    --color-info-800: #066286;
+    --color-info-900: #0b516f;
+    --color-info-950: #07344a;
+
+    --color-success-50: #f3f9ec;
+    --color-success-100: #e4f2d5;
+    --color-success-200: #cae7af;
+    --color-success-300: #a8d680;
+    --color-success-400: #89c358;
+    --color-success-500: #77bb41;
+    --color-success-600: #51852b;
+    --color-success-700: #3f6625;
+    --color-success-800: #355222;
+    --color-success-900: #2f4621;
+    --color-success-950: #16260d;
+
+    --color-danger-50: #fff3ed;
+    --color-danger-100: #ffe4d4;
+    --color-danger-200: #ffc4a8;
+    --color-danger-300: #ff9b70;
+    --color-danger-400: #ff6537;
+    --color-danger-500: #ff4013;
+    --color-danger-600: #f02306;
+    --color-danger-700: #c71507;
+    --color-danger-800: #9e120e;
+    --color-danger-900: #7f130f;
+    --color-danger-950: #450505;
+
+    --color-warning-50: #fffaeb;
+    --color-warning-100: #fff1c6;
+    --color-warning-200: #fee389;
+    --color-warning-300: #fecb3e;
+    --color-warning-400: #feb921;
+    --color-warning-500: #f89708;
+    --color-warning-600: #db7004;
+    --color-warning-700: #b64e07;
+    --color-warning-800: #943c0c;
+    --color-warning-900: #79320e;
+    --color-warning-950: #461802;
+}
+
+html {
+    @apply text-secondary-900 dark:text-secondary-300;
+}
+
+.custom-input {
+    @apply block text-sm rounded-lg w-full p-2.5 placeholder-secondary-700 dark:placeholder-secondary-300;
+    @apply bg-secondary-50 dark:bg-secondary-900;
+    @apply border border-secondary-300 dark:border-secondary-600;
+    @apply focus:ring-primary-500 focus:border-primary-500;
 }
