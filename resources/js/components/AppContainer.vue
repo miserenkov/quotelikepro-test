@@ -2,8 +2,11 @@
 import {useLayoutStore} from "../stores/layout";
 import {computed, onMounted} from "vue";
 import CalculationForm from "./CalculationForm.vue";
+import CalculationResult from "./CalculationResult.vue";
+import {useCalculationStore} from "../stores/calculation";
 
 const layoutStore = useLayoutStore();
+const calculationStore = useCalculationStore();
 
 const onToggleTheme = () => {
     if (layoutStore.isDarkTheme) {
@@ -23,12 +26,12 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="bg-secondary-100 dark:bg-secondary-950 p-5 md:p-12 w-screen h-screen">
-        <div class="bg-white dark:bg-secondary-700 p-6 shadow rounded-2xl flex flex-col gap-4 xl:max-w-7xl mx-auto">
+    <div class="bg-secondary-100 dark:bg-secondary-950 p-5 md:p-12 w-screen min-h-screen h-full min-w-[375px]">
+        <div class="bg-white dark:bg-secondary-700 p-4 md:p-6 shadow rounded-2xl flex flex-col gap-4 xl:max-w-7xl mx-auto relative">
             <div class="flex flex-row items-center justify-between gap-5">
                 <div class="flex items-center gap-4">
                     <div class="flex flex-col gap-2">
-                        <div class="text-lg md:text-2xl font-semibold leading-tight text-secondary-900 dark:text-secondary-100">Price Calculator</div>
+                        <div class="text-lg md:text-2xl font-semibold leading-tight text-secondary-900 dark:text-secondary-100">Калькулятор стоимости</div>
                     </div>
                 </div>
                 <div class="flex gap-4">
@@ -40,7 +43,7 @@ onMounted(() => {
                                 <div class="dot absolute left-1 top-1 dark:bg-white bg-secondary-800 w-3 h-3 md:w-6 md:h-6 rounded-full transition"></div>
                             </div>
                             <div class="ml-3 font-medium">
-                                Dark Mode
+                                Темная тема
                             </div>
                         </label>
                     </div>
@@ -48,7 +51,8 @@ onMounted(() => {
             </div>
 
             <div class="flex flex-1">
-                <CalculationForm />
+                <CalculationResult v-if="calculationStore.hasCalculation" />
+                <CalculationForm v-else />
             </div>
         </div>
     </div>
@@ -57,6 +61,6 @@ onMounted(() => {
 <style scoped>
 input:checked ~ .dot {
     transform: translateX(100%);
-    background: var(--color-info-500);
+    background: var(--color-primary-500);
 }
 </style>

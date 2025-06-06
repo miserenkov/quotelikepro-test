@@ -5,6 +5,8 @@
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
+@source '../**/*.ts';
+@source '../**/*.vue';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -94,4 +96,32 @@ html {
     @apply bg-secondary-50 dark:bg-secondary-900;
     @apply border border-secondary-300 dark:border-secondary-600;
     @apply focus:ring-primary-500 focus:border-primary-500;
+}
+
+.btn {
+    @apply cursor-pointer rounded-md px-4 py-2 text-sm font-semibold text-white transition duration-300 ease-in-out;
+}
+
+.btn-primary {
+    @apply bg-primary-500 hover:bg-primary-600;
+}
+
+.btn-secondary {
+    @apply bg-secondary-500 hover:bg-secondary-600;
+}
+
+.btn-info {
+    @apply bg-info-500 hover:bg-info-600;
+}
+
+.btn-success {
+    @apply bg-success-500 hover:bg-success-600;
+}
+
+.btn-danger {
+    @apply bg-danger-500 hover:bg-danger-600;
+}
+
+.btn-warning {
+    @apply bg-warning-500 hover:bg-warning-600;
 }
