@@ -17,7 +17,7 @@ use Illuminate\Support\Collection;
 class PriceCalculationContext
 {
     public function __construct(
-        public readonly PriceCalculationInput $input,
+        public PriceCalculationInput $input,
         protected BigDecimal $currentPrice,
         /** @var Collection<PriceRuleResultData> */
         protected Collection $appliedRules,
@@ -42,6 +42,9 @@ class PriceCalculationContext
         return $this;
     }
 
+    /**
+     * @return Collection<PriceRuleResultData>
+     */
     public function getAppliedRules(): Collection
     {
         return $this->appliedRules;
