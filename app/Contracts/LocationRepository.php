@@ -20,4 +20,6 @@ interface LocationRepository
      * @return Collection<Location>
      */
     public function getAll(): Collection;
+
+    public function find(int $id): ?Location;
 }

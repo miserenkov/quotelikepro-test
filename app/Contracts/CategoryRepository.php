@@ -20,4 +20,6 @@ interface CategoryRepository
      * @return Collection<Category>
      */
     public function getAll(): Collection;
+
+    public function find(int $id): ?Category;
 }

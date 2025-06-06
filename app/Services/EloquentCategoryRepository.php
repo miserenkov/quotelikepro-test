@@ -21,4 +21,9 @@ class EloquentCategoryRepository implements CategoryRepository
     {
         return Category::query()->get();
     }
+
+    public function find(int $id): ?Category
+    {
+        return Category::query()->find($id);
+    }
 }

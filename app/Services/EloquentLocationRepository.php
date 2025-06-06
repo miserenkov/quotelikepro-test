@@ -21,4 +21,9 @@ class EloquentLocationRepository implements LocationRepository
     {
         return Location::query()->get();
     }
+
+    public function find(int $id): ?Location
+    {
+        return Location::query()->find($id);
+    }
 }
