@@ -18,8 +18,8 @@ use App\Services\DefaultPriceCalculatorService;
 use Brick\Math\BigDecimal;
 use Brick\Math\RoundingMode;
 use Brick\Money\Currency;
+use Brick\Money\Money;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\TestWith;
 use ReflectionClass;
 use Tests\TestCase;
 use Tests\Unit\Fakes\FakeMinusFivePercentPriceRule;
@@ -38,6 +38,7 @@ class DefaultPriceCalculatorServiceTest extends TestCase
         $money->method('defaultCurrency')->willReturn($expectedCurrency = Currency::of('EUR'));
         $money->method('defaultDecimalScale')->willReturn(2);
         $money->method('defaultRoundingMode')->willReturn(RoundingMode::HALF_UP);
+        $money->method('make')->willReturn(Money::of($basePrice, $expectedCurrency));
 
         $service = new DefaultPriceCalculatorService(['rules' => $rules], $money);
         $result = $service->calculate($input);
@@ -55,7 +56,7 @@ class DefaultPriceCalculatorServiceTest extends TestCase
 
 
         $this->assertTrue($result->total->isEqualTo($expectedTotal));
-        $this->assertTrue($result->currency->is($expectedCurrency));
+        $this->assertTrue($result->total->getCurrency()->is($expectedCurrency));
     }
 
     public function testGetPriceRulesReturnsListOfRulesInstanceInSameOrdering(): void
@@ -92,6 +93,8 @@ class DefaultPriceCalculatorServiceTest extends TestCase
     public function testGetPriceRulesThrowsExceptionWhenRulesNotProvided(): void
     {
         $money = $this->createMock(MoneyService::class);
+        $money->method('make')->willReturn(Money::of(20, 'USD'));
+
         $service = new DefaultPriceCalculatorService([], $money);
         $input = new PriceCalculationInput(
             basePrice: BigDecimal::of('10'),

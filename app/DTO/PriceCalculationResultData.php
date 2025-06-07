@@ -11,8 +11,7 @@ declare(strict_types=1);
 
 namespace App\DTO;
 
-use Brick\Math\BigDecimal;
-use Brick\Money\Currency;
+use Brick\Money\Money;
 use Illuminate\Support\Collection;
 
 readonly class PriceCalculationResultData
@@ -21,7 +20,6 @@ readonly class PriceCalculationResultData
         public ProductItemData $product,
         /** @var Collection<PriceRuleResultData> $appliedRules */
         public Collection $appliedRules,
-        public BigDecimal $total,
-        public Currency $currency,
+        public Money $total,
     ) {}
 }

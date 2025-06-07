@@ -39,8 +39,8 @@ class QuantityPriceRule extends AbstractPriceRule
         $percent = $firstSuitableQuantity['percentModifier']
             ->dividedBy(100, roundingMode: $this->moneyService->defaultRoundingMode());
 
-        $value = $context->getCurrentPrice()->multipliedBy($percent);
-        $newPrice = $context->getCurrentPrice()->plus($value);
+        $value = $context->getCurrentPrice()->multipliedBy($percent, $this->moneyService->defaultRoundingMode());
+        $newPrice = $context->getCurrentPrice()->plus($value, $this->moneyService->defaultRoundingMode());
 
         $context
             ->setCurrentPrice($newPrice)

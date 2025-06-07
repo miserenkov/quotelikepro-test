@@ -27,8 +27,8 @@ class PriceCalculationResource extends JsonResource
             'number' => Str::random(8),
             'product' => $this->product,
             'appliedRules' => $this->appliedRules,
-            'total' => $this->total->toFloat(),
-            'currency' => $this->currency->getCurrencyCode(),
+            'total' => $this->total->getAmount()->toFloat(),
+            'currency' => $this->total->getCurrency()->getCurrencyCode(),
         ];
     }
 }

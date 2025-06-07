@@ -12,25 +12,26 @@ declare(strict_types=1);
 namespace App\DTO;
 
 use Brick\Math\BigDecimal;
+use Brick\Money\Money;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 
 readonly class ProductItemData implements Arrayable, JsonSerializable
 {
     public function __construct(
-        public string     $name,
-        public BigDecimal $price,
-        public int        $quantity,
-        public BigDecimal $total,
+        public string $name,
+        public Money  $price,
+        public int    $quantity,
+        public Money  $total,
     ) {}
 
     public function toArray(): array
     {
         return [
             'name' => $this->name,
-            'price' => $this->price->toFloat(),
+            'price' => $this->price->getAmount()->toFloat(),
             'quantity' => $this->quantity,
-            'total' => $this->total->toFloat(),
+            'total' => $this->total->getAmount()->toFloat(),
         ];
     }
 

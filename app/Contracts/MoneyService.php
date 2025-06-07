@@ -11,9 +11,11 @@ declare(strict_types=1);
 
 namespace App\Contracts;
 
+use Brick\Math\BigNumber;
 use Brick\Math\RoundingMode;
 use Brick\Money\Context;
 use Brick\Money\Currency;
+use Brick\Money\Money;
 
 interface MoneyService
 {
@@ -26,4 +28,6 @@ interface MoneyService
     public function defaultCurrency(): Currency;
 
     public function defaultContext(): Context;
+
+    public function make(BigNumber|int|float|string $amount, Currency|string|int|null $currency = null): Money;
 }

@@ -19,6 +19,7 @@ use App\Exceptions\PriceCalculationException;
 use App\PriceRules\QuantityPriceRule;
 use Brick\Math\BigDecimal;
 use Brick\Math\RoundingMode;
+use Brick\Money\Money;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestWith;
 use Tests\TestCase;
@@ -101,7 +102,7 @@ class QuantityPriceRuleTest extends TestCase
 
         $context = new PriceCalculationContext(
             new PriceCalculationInput($initialPrice, $quantity + 1, 0, 0),
-            $initialPrice,
+            Money::of($initialPrice, 'USD'),
             collect(),
         );
 
@@ -109,7 +110,7 @@ class QuantityPriceRuleTest extends TestCase
 
         $returned = $rule->apply($context, fn ($c) => $c);
 
-        $this->assertTrue($expectedPrice->isEqualTo($returned->getCurrentPrice()));
+        $this->assertTrue($returned->getCurrentPrice()->isEqualTo($expectedPrice));
         $this->assertCount(1, $returned->getAppliedRules());
 
         /** @var PriceRuleResultData $appliedRule */

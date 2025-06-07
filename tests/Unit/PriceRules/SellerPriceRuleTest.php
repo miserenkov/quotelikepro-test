@@ -18,6 +18,7 @@ use App\DTO\PriceRuleResultData;
 use App\PriceRules\SellerPriceRule;
 use Brick\Math\BigDecimal;
 use Brick\Math\RoundingMode;
+use Brick\Money\Money;
 use PHPUnit\Framework\Attributes\TestWith;
 use Tests\TestCase;
 
@@ -53,7 +54,7 @@ class SellerPriceRuleTest extends TestCase
 
         $context = new PriceCalculationContext(
             new PriceCalculationInput($initialPrice, 1, 34, 0),
-            $initialPrice,
+            Money::of($initialPrice, 'USD'),
             collect(),
         );
 
@@ -61,7 +62,7 @@ class SellerPriceRuleTest extends TestCase
 
         $returned = $rule->apply($context, fn ($c) => $c);
 
-        $this->assertTrue($expectedPrice->isEqualTo($returned->getCurrentPrice()));
+        $this->assertTrue($returned->getCurrentPrice()->isEqualTo($expectedPrice));
         $this->assertCount(1, $returned->getAppliedRules());
 
         /** @var PriceRuleResultData $appliedRule */

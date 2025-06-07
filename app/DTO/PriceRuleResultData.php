@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace App\DTO;
 
 use Brick\Math\BigDecimal;
+use Brick\Money\Money;
 use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 
@@ -21,8 +22,8 @@ readonly class PriceRuleResultData implements Arrayable, JsonSerializable
         public string     $id,
         public string     $label,
         public BigDecimal $percent,
-        public BigDecimal $value,
-        public BigDecimal $newPrice,
+        public Money $value,
+        public Money $newPrice,
     ) {}
 
     public function toArray(): array
@@ -31,8 +32,8 @@ readonly class PriceRuleResultData implements Arrayable, JsonSerializable
             'id' => $this->id,
             'label' => $this->label,
             'percent' => $this->percent->toFloat(),
-            'value' => $this->value->toFloat(),
-            'newPrice' => $this->newPrice->toFloat(),
+            'value' => $this->value->getAmount()->toFloat(),
+            'newPrice' => $this->newPrice->getAmount()->toFloat(),
         ];
     }
 

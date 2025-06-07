@@ -33,11 +33,12 @@ class DefaultPriceCalculatorService implements PriceCalculatorService
      */
     public function calculate(PriceCalculationInput $data): PriceCalculationResultData
     {
+        $productBasePrice = $this->moneyService->make($data->basePrice);
         $product = new ProductItemData(
             name: 'Product 1',
-            price: $data->basePrice,
+            price: $productBasePrice,
             quantity: $data->quantity,
-            total: $data->basePrice->multipliedBy($data->quantity),
+            total: $productBasePrice->multipliedBy($data->quantity),
         );
 
         $context = new PriceCalculationContext(
@@ -57,7 +58,6 @@ class DefaultPriceCalculatorService implements PriceCalculatorService
             product: $product,
             appliedRules: $context->getAppliedRules(),
             total: $context->getCurrentPrice(),
-            currency: $this->moneyService->defaultCurrency(),
         );
     }
 

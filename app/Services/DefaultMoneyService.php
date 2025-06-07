@@ -12,10 +12,14 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Contracts\MoneyService;
+use Brick\Math\BigNumber;
+use Brick\Math\Exception\NumberFormatException;
+use Brick\Math\Exception\RoundingNecessaryException;
 use Brick\Math\RoundingMode;
 use Brick\Money\Context;
 use Brick\Money\Currency;
 use Brick\Money\Exception\UnknownCurrencyException;
+use Brick\Money\Money;
 
 class DefaultMoneyService implements MoneyService
 {
@@ -47,5 +51,18 @@ class DefaultMoneyService implements MoneyService
     public function defaultContext(): Context
     {
         return new Context\CustomContext($this->defaultDecimalScale(), $this->defaultRoundingStep());
+    }
+
+    /**
+     * @throws UnknownCurrencyException|RoundingNecessaryException|NumberFormatException
+     */
+    public function make(BigNumber|int|float|string $amount, Currency|string|int|null $currency = null): Money
+    {
+        return Money::of(
+            amount: $amount,
+            currency: $currency === null ? $this->defaultCurrency() : $currency,
+            context: $this->defaultContext(),
+            roundingMode: $this->defaultRoundingMode(),
+        );
     }
 }

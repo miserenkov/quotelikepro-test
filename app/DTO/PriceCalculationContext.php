@@ -11,24 +11,24 @@ declare(strict_types=1);
 
 namespace App\DTO;
 
-use Brick\Math\BigDecimal;
+use Brick\Money\Money;
 use Illuminate\Support\Collection;
 
 class PriceCalculationContext
 {
     public function __construct(
         public PriceCalculationInput $input,
-        protected BigDecimal $currentPrice,
+        protected Money $currentPrice,
         /** @var Collection<PriceRuleResultData> */
         protected Collection $appliedRules,
     ) {}
 
-    public function getCurrentPrice(): BigDecimal
+    public function getCurrentPrice(): Money
     {
         return $this->currentPrice;
     }
 
-    public function setCurrentPrice(BigDecimal $price): self
+    public function setCurrentPrice(Money $price): self
     {
         $this->currentPrice = $price;
 

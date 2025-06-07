@@ -45,8 +45,8 @@ class LocationPriceRule extends AbstractPriceRule
         $percent = $location->price_modifier
             ->dividedBy(100, roundingMode: $this->moneyService->defaultRoundingMode());
 
-        $value = $context->getCurrentPrice()->multipliedBy($percent);
-        $newPrice = $context->getCurrentPrice()->plus($value);
+        $value = $context->getCurrentPrice()->multipliedBy($percent, $this->moneyService->defaultRoundingMode());
+        $newPrice = $context->getCurrentPrice()->plus($value, $this->moneyService->defaultRoundingMode());
 
         $context
             ->setCurrentPrice($newPrice)
